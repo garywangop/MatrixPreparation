@@ -3,6 +3,7 @@ package com.laioffer.matrix;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import android.content.res.Configuration;
@@ -45,7 +46,13 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
 
     @Override
     public void onItemSelected(int position) {
-        gridFragment.onItemSelected(position);
+        if (!isTablet()) {
+            Intent intent = new Intent(this, EventGridActivity.class);
+            intent.putExtra("position", position);
+            startActivity(intent);
+        } else {
+            gridFragment.onItemSelected(position);
+        }
     }
 
     @Override

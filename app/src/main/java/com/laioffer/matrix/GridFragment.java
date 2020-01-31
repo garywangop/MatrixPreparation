@@ -14,9 +14,6 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class GridFragment extends Fragment {
     private GridView gridView;
 
