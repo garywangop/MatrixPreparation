@@ -13,16 +13,26 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ListFragment.OnItemSelectListener{
+    private ListFragment listFragment;
+    private GridFragment gridFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (savedInstanceState == null) {
+            //add list view
+            if (getSupportFragmentManager().findFragmentById(R.id.list_container) == null) {
+                listFragment = new ListFragment();
+                getSupportFragmentManager().beginTransaction().add(R.id.list_container, listFragment).commit();
+            }
 
-        // Show different fragments based on screen size.
-        if (findViewById(R.id.fragment_container) != null) {
-            Fragment fragment = isTablet() ? new  GridFragment() : new ListFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment).commit();
+            //add Gridview
+            if (getSupportFragmentManager().findFragmentById(R.id.grid_container) == null && isTablet()) {
+                gridFragment = new GridFragment();
+                getSupportFragmentManager().beginTransaction().add(R.id.grid_container, gridFragment).commit();
+            }
         }
     }
 
@@ -30,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
         return (getApplicationContext().getResources().getConfiguration().screenLayout &
                 Configuration.SCREENLAYOUT_SIZE_MASK) >=
                 Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    @Override
+    public void onItemSelected(int position) {
+        gridFragment.onItemSelected(position);
     }
 
 

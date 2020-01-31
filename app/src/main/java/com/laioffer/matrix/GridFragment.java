@@ -1,6 +1,7 @@
 package com.laioffer.matrix;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,12 +16,12 @@ import android.widget.GridView;
  * A simple {@link Fragment} subclass.
  */
 public class GridFragment extends Fragment {
+    private GridView gridView;
 
 
     public GridFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,4 +33,16 @@ public class GridFragment extends Fragment {
         return view;
     }
 
+    // Change background color if the item is selected
+    public void onItemSelected(int position){
+        for (int i = 0; i < gridView.getChildCount(); i++){
+            if (position == i) {
+                gridView.getChildAt(i).setBackgroundColor(Color.BLUE);
+            } else {
+                gridView.getChildAt(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+            }
+        }
+    }
+
 }
+
