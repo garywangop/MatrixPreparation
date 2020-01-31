@@ -2,8 +2,10 @@ package com.laioffer.matrix;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -17,6 +19,7 @@ import android.widget.ListView;
 
 public class ListFragment extends Fragment {
     OnItemSelectListener callBack;
+    private ListView listView;
 
     // Container Activity must implement this interface
     public interface OnItemSelectListener {
@@ -36,7 +39,9 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.event_list);
+        listView = (ListView) view.findViewById(R.id.event_list);
+        listView.setAdapter(new EventAdapter(getActivity()));
+
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 getContext(),
                 android.R.layout.simple_list_item_1,
@@ -54,8 +59,19 @@ public class ListFragment extends Fragment {
         return view;
     }
 
+    public void onItemSelected(int position) {
+        for (int i = 0; i < listView.getChildCount(); i++) {
+            if (position == i) {
+                listView.getChildAt(i).setBackgroundColor(Color.BLUE);
+            } else {
+                listView.getChildAt(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+            }
+        }
+    }
+
+
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
             callBack = (OnItemSelectListener) context;
@@ -72,6 +88,4 @@ public class ListFragment extends Fragment {
                 "Event10", "Event11", "Event12"};
         return names;
     }
-
-
 }

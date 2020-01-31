@@ -13,7 +13,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnItemSelectListener{
+public class MainActivity extends AppCompatActivity implements ListFragment.OnItemSelectListener,
+        GridFragment.OnItemSelectListener{
     private ListFragment listFragment;
     private GridFragment gridFragment;
 
@@ -47,5 +48,9 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnIt
         gridFragment.onItemSelected(position);
     }
 
+    @Override
+    public void onCommentSelected(int position) {
+        listFragment.onItemSelected(position);
+    }
 
 }
