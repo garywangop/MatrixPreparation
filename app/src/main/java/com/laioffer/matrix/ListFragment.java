@@ -15,9 +15,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ListFragment extends Fragment {
     OnItemSelectListener callBack;
 
@@ -45,7 +42,15 @@ public class ListFragment extends Fragment {
                 android.R.layout.simple_list_item_1,
                 getEventNames());
 
+        // Assign adapter to ListView.
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                callBack.onItemSelected(position);
+            }
+        });
+
         return view;
     }
 

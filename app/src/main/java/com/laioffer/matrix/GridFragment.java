@@ -28,7 +28,7 @@ public class GridFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_grid, container, false);
-        GridView gridView = (GridView) view.findViewById(R.id.view_grid);
+        gridView = (GridView) view.findViewById(R.id.view_grid);
         gridView.setAdapter(new EventAdapter(getActivity()));
         return view;
     }
